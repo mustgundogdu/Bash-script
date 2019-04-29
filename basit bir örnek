@@ -1,0 +1,5 @@
+#!/bin/bash
+#Ters tırnak içerisinde değişken örneği
+
+sistem=`uname -a`
+echo "sistem bilgileriniz: $sistem" 
