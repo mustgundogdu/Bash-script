@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "İsminizi girin:"
+read name
+echo "Debian/linux'a hoşgeldin $name"
