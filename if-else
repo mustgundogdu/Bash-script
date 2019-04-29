@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "sayi girin"
+read n
+
+if [[ ( $n -eq 15 || $n  -eq 45 ) ]]
+then
+echo "oyunu kazandın"
+else
+echo "oyunu kaybettin"
+fi
