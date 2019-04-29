@@ -1,0 +1,5 @@
+#!/bin/bash
+#iki sayıyı toplama
+((sum=34+56))
+
+echo $sum
