@@ -1,0 +1,6 @@
+#!/bin/bash
+for ((saydir=10;saydir>0;saydir--))
+do 
+echo -n "$saydir"
+done
+printf "\n"
