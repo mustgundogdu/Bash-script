@@ -1,0 +1,12 @@
+!/bin/bash
+
+echo "Kullanıcı adınızı giriniz.."
+read username
+echo "Şifrenizi giriniz..."
+read password
+
+if [[ ( $username == "admin" && $password == "secret" ) ]]; then
+echo "Hoşgeldiniz..."
+else
+echo "Hatalı giriş"
+fi
