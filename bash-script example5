@@ -1,0 +1,17 @@
+#!bin/bash
+
+echo "Please enter a number"
+read num
+
+if [[(num -eq 5 || num -eq 10)]];
+then
+for(( s=10; s>0; s--))
+do
+echo "my lucky number perfect selection"
+done
+else
+for(( s=10; s>0; s--))
+do 
+echo "not my lucky number sorry lose"
+done
+fi
