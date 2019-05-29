@@ -1,0 +1,7 @@
+#!/bin/bash
+#iki sayıyı toplama
+((sum=34+56))
+((carpim=5*7))
+
+echo "numbers total of: $sum"
+echo "numbers product of: $carpim"
