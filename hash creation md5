@@ -1,0 +1,9 @@
+#!/bin/bash
+echo "Şifrelemek istediğiniz kelimeyi girin"
+read argumant
+
+
+echo $argumant |md5sum > txt
+cat txt
+echo "HASH başarılı olarak txt dosyasına yazılmıştır"
+
