@@ -1,0 +1,97 @@
+#!/bin/bash
+echo "BASHSCRIPT ILE CILGIN ISLEMLERE HOSGELDINIZ !! "
+echo "Lutfen yapacaginiz islemi seciniz ..."
+echo "(1) Kullanici Islemleri "
+echo "(2) Sistem Bilgileri Sorgulama "
+read m
+if [ $m -eq 1 ];
+then
+
+echo "Kullanıcı ekle[1]"
+echo "Kullanıcı sil[2]"
+echo "Kullanıcı gruba ata[3]"
+echo "Kullanıcı gruptan cikar[4]"
+read n
+
+if [ $n -eq 1 ];
+then
+	if [ $(id -u) -eq 0 ];
+	then
+		read -p "Kullanıcı adi girin :" username
+		read -s -p "Parola girin : " password
+		egrep "^$username" /etc/passwd > /dev/null
+		if [ $? -eq 0 ];
+		then
+			echo "$username Var!"
+			exit 1
+			else
+				pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
+				useradd -m -p $pass $username
+				[ $? -eq 0 ] && echo "Kullanıcı sistem'e eklendi !" || "Kullanıcı eklenirken bir hata olustu!"
+			fi
+		else
+			echo "Sisteme sadece root kullanıcı ekleyebilir."
+			exit 2
+		fi
+	fi
+if [ $n -eq 2 ];
+then
+	if [ $(id -u) -eq 0 ];
+	then
+		read -p "Silmek istediginiz kullanicinin adi :" username
+		userdel -r $username
+		echo "Ok!"
+		else
+			echo "Sistemden sadece root kullanıcı silebilir"
+			exit 1
+	fi				
+	fi
+if [ $n -eq 3 ];
+then
+	if [ $(id -u) -eq 0 ];
+	then
+		read -p "Gruba eklemek istediginiz kullanici adini girin :" username
+		read -p "Grup ismini girin :" groupname
+		usermod -G $groupname $username
+		echo "Ok!"
+	else
+		exit 1
+	fi
+fi
+
+if [ $n -eq 4 ];
+then
+	if [ $(id -u) -eq 0 ];
+	then
+		read -p "Gruptan cikarmak istediginiz kullanıcı ismini giriniz :" username
+		read -p "Hangi gruptan cikarmak istiyorsunuz: " groupname
+		deluser $username $groupname
+		echo "Ok!"
+	else
+		exit 1
+
+	fi
+fi
+fi
+if [ $m -eq 2 ];
+then
+
+	read -p "Sistem Yetkisini sorgulamak istediginiz kullanici adi:" username
+	sudo -l -U $username
+	echo "###Kernel bilgisi###"
+	uname -r
+	echo "#### Bakalım neler oluyormuss!!"
+	jobs 
+	echo "   "
+	echo "#####Dinlenen Portlar #####"
+	netstat -tulp
+	echo "Kullanıcının yazma iznine sahip oldugu dosyaları gormek istermisin?(Y)"
+	read s
+	if [ $s == 'Y' ];
+	then
+		echo "####KULLANICININ TUM SISTEMDE YAZMA IZNINE SAHIP OLDUGU DOSYALAR#### " 
+		find / -user $username -perm -u=w  
+	else
+		exit 1
+	fi
+fi
